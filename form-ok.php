@@ -10,6 +10,7 @@ $products_list = array(
 );
 $products = urlencode(serialize($products_list));
 // параметры запроса
+
 $data = array(
     'key'             => '8b74c096c257be26f57295a79c4735b5', //Ваш секретный токен
     'order_id'        => number_format(round(microtime(true)*10),0,'.',''), //идентификатор (код) заказа (*автоматически*)
@@ -46,6 +47,7 @@ curl_close($curl);
 <html lang="ru">
     <head>
         <meta charset="UTF-8">
+        <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
         <title>Поздравляем! Ваш заказ принят!</title>
         <style type="text/css">
             body {
