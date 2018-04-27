@@ -1,3 +1,4 @@
+
 $(function () {
 
     $('<div id="overlay-popup-m1"></div>' +
@@ -5,12 +6,7 @@ $(function () {
         '<a class="close-m1"></a>' +
         '<div><div class="popup-m1-title">Вам понравилось это предложение?</div>' +
         '<div class="popup-m1-cont"><div class="popup-m1-text1">Мы расскажем Вам все об этом товаре, предложим наилучшие условия и ознакомим с подходящими акционными предложениями!</div>' +
-        '<form method="POST" action="mail.php" class="popup-m1-form">' +
-        <!-- Hidden Required Fields -->
-        '<input type="hidden" name="project_name" value="Pet Brush Glove">' +
-        '<input type="hidden" name="admin_email" value="kupi2008@ukr.net">' +
-        '<input type="hidden" name="form_subject" value="Ваш заказ">' +
-        <!-- END Hidden Required Fields -->
+        '<form method="post" action="zakaz.php" class="popup-m1-form">' +
         '<input type="text" name="name" placeholder="Введите ваше имя" required="">' +
         '<input type="text" name="phone" placeholder="Введите телефон" required="">' +
         '<button>Перезвоните мне</button>' +

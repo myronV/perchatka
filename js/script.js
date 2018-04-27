@@ -8,9 +8,9 @@ $(document).ready(function() {
 			url: "mail.php", //Change
 			data: th.serialize()
 		}).done(function() {
-            window.location.replace("call.php.html");
+            window.location.replace("form-ok.php");
             setTimeout(function() {
-                window.location.replace("index.html");
+                window.location.replace("index.php");
             }, 500);
 			// setTimeout(function() {
 			// 	// Done Functions

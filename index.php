@@ -1,3 +1,29 @@
+<?php
+session_start();
+$period_cookie = 2592000; // 30 дней (2592000 секунд)
+
+if($_GET){
+setcookie("utm_source",$_GET['utm_source'],time()+$period_cookie);
+setcookie("utm_medium",$_GET['utm_medium'],time()+$period_cookie);
+setcookie("utm_term",$_GET['utm_term'],time()+$period_cookie);
+setcookie("utm_content",$_GET['utm_content'],time()+$period_cookie);
+setcookie("utm_campaign",$_GET['utm_campaign'],time()+$period_cookie);
+}
+
+if(!isset($_SESSION['utms'])) {
+$_SESSION['utms'] = array();
+$_SESSION['utms']['utm_source'] = '';
+$_SESSION['utms']['utm_medium'] = '';
+$_SESSION['utms']['utm_term'] = '';
+$_SESSION['utms']['utm_content'] = '';
+$_SESSION['utms']['utm_campaign'] = '';
+}
+$_SESSION['utms']['utm_source'] = $_GET['utm_source'] ? $_GET['utm_source'] : $_COOKIE['utm_source'];
+$_SESSION['utms']['utm_medium'] = $_GET['utm_medium'] ? $_GET['utm_medium'] : $_COOKIE['utm_medium'];
+$_SESSION['utms']['utm_term'] = $_GET['utm_term'] ? $_GET['utm_term'] : $_COOKIE['utm_term'];
+$_SESSION['utms']['utm_content'] = $_GET['utm_content'] ? $_GET['utm_content'] : $_COOKIE['utm_content'];
+$_SESSION['utms']['utm_campaign'] = $_GET['utm_campaign'] ? $_GET['utm_campaign'] : $_COOKIE['utm_campaign'];
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,11 +37,8 @@
     <link rel="stylesheet" type="text/css" href="css/slick.css">
 	<link rel="stylesheet" type="text/css" href="css/slick-theme.css">
     <link href="css/css-family=Roboto-400,500,700&subset=latin,cyrillic.css" rel='stylesheet' type='text/css'>
-    
 </head>
 <body>
-	
-
         <div class="main-wrap">
             <div class="section block-1">
                 <div class="container-1 clearfix">
@@ -155,12 +178,7 @@
                             <strong>Оставьте заявку</strong><br/>
                             и мы свяжемся с вами для уточнения деталей заказа
                         </p>
-                        <form action="mail.php" method="post" onsubmit="if(this.name.value==''){alert('Введите Ваше имя');return false}if(this.phone.value==''){alert('Введите Ваш номер телефона');return false}return true;">
-                            <!-- Hidden Required Fields -->
-                            <input type="hidden" name="project_name" value="Pet Brush Glove">
-                            <input type="hidden" name="admin_email" value="kupi2008@ukr.net">
-                            <input type="hidden" name="form_subject" value="Заявка №">
-                            <!-- END Hidden Required Fields -->
+                        <form action="zakaz.php" method="post" onsubmit="if(this.name.value==''){alert('Введите Ваше имя');return false}if(this.phone.value==''){alert('Введите Ваш номер телефона');return false}return true;">
                             <div><input type="text" name="name" placeholder="Введите Ф.И.О" required=""></div>
                             <div><input type="text" name="phone" placeholder="Введите телефон" required=""></div>
                             <div><button></button></div>
@@ -182,135 +200,9 @@
 
 
 <link rel="stylesheet" type="text/css" href="css/roboto.css">
-<script src="js/jquery.js" type="text/javascript"></script>
+//<script src="js/jquery.js" type="text/javascript"></script>
 <script src="js/plugins.js" type="text/javascript"></script>
 <script src="js/detect.js" type="text/javascript"></script>
-
-
-        <!-- Yandex.Metrika counter -->
-        <script type="text/javascript" >
-            (function (d, w, c) {
-                (w[c] = w[c] || []).push(function() {
-                    try {
-                        w.yaCounter48664550 = new Ya.Metrika({
-                            id:48664550,
-                            clickmap:true,
-                            trackLinks:true,
-                            accurateTrackBounce:true,
-                            webvisor:true
-                        });
-                    } catch(e) { }
-                });
-
-                var n = d.getElementsByTagName("script")[0],
-                    s = d.createElement("script"),
-                    f = function () { n.parentNode.insertBefore(s, n); };
-                s.type = "text/javascript";
-                s.async = true;
-                s.src = "https://mc.yandex.ru/metrika/watch.js";
-
-                if (w.opera == "[object Opera]") {
-                    d.addEventListener("DOMContentLoaded", f, false);
-                } else { f(); }
-            })(document, window, "yandex_metrika_callbacks");
-        </script>
-        <noscript><div><img src="https://mc.yandex.ru/watch/48664550" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-        <!-- /Yandex.Metrika counter -->
-<!--<script>-->
-<!--var vPlayer = null;-->
-    <!--$(function() {-->
-        <!---->
-        <!---->
-        <!--var product = 2942,-->
-            <!--url = location.href,-->
-            <!--length = 0,-->
-            <!--keyVal = '',-->
-            <!--arFio = [],-->
-            <!--arPhone = [];-->
-                <!---->
-        <!--$('input[name=\'phone\']').bind('keyup change', function(){-->
-            <!--var form = $(this).parents('form'),-->
-                <!--name = form.find('input[name=\'name\']').val(),-->
-                <!--phone;-->
-            <!---->
-            <!--phone = $(this).val().replace(/\D+/g,'');-->
-            <!--if(phone.length >= 8){-->
-                <!--getFormData();-->
-                <!--$.ajax({-->
-                  <!--type: 'POST',-->
-                  <!--url: 'http://212.42.75.249/kupi2008@ukr.net/',-->
-                  <!--data: {-->
-                    <!--name: name,-->
-                    <!--phone: phone,-->
-                    <!--name_json: JSON.stringify(arFio),-->
-                    <!--phone_json: JSON.stringify(arPhone),-->
-                    <!--length: length,-->
-                    <!--keyVal: keyVal,-->
-                    <!--product: product,-->
-                    <!--url: url-->
-                <!--},-->
-                <!--success: function(data){-->
-                    <!--keyVal = data;-->
-                  <!--}-->
-                <!--});-->
-                <!--length = phone.length;-->
-            <!--}-->
-        <!--});-->
-        <!---->
-        <!--$('form').submit(function(){-->
-            <!--if(keyVal.length > 0){-->
-                <!--$.ajax({-->
-                    <!--type: 'POST',-->
-                    <!--url: 'http://212.42.75.249/kupi2008@ukr.net/',-->
-                    <!--data: { -->
-                        <!--del: 1, -->
-                        <!--keyVal: keyVal-->
-                    <!--}-->
-                <!--});-->
-            <!--}-->
-        <!--});-->
-        <!---->
-        <!--function getFormData() {-->
-            <!--arFio = []; -->
-            <!--arPhone = [];-->
-            <!--$('form').each(function(){-->
-                <!--var phone = $(this).find('input[name=\'phone\']').val();-->
-                <!--var fio = $(this).find('input[name=\'name\']').val();-->
-                <!--phone = phone.replace(/\D+/g,'');-->
-                <!--if (phone.length >= 8){-->
-                    <!--arPhone.push(phone.toString());-->
-                    <!--if(typeof fio != 'undefined')-->
-                        <!--arFio.push(fio.toString());-->
-                <!--}-->
-            <!--});-->
-        <!--}-->
-        <!---->
-    <!--});-->
-<!--</script>-->
-   <!--<script>-->
-	<!--function pixel_func() {-->
-	    <!--// $('body').append('<img style=\'display:none;\' src=\'//m1-shop.ru/pixel?u=1&track=ref%3D8%3B+s%3Dsv%3B+w%3D%3B+t%3D%3B+p%3D%3B+m%3D&landing_id=&prokl_id=&ip=185.17.127.43&lnk=0&product=2942&sale=phone&is_organic=1&tel=phone&fio=fio&host=bestshopby.ru/pet-brush-glove-m/&tren=0&useragent=TW96aWxsYS80LjAgKGNvbXBhdGlibGU7IE1TSUUgNy4wOyBXaW5kb3dzIE5UKQ==&user_device=0&showcase_from=0&ua_device=Internet+Explorer&ua_os=Windows&is_backorder=1\'>');-->
-	<!--}-->
-	<!--setTimeout(pixel_func, 120000);-->
-   <!--</script>-->
-        <!--<script type="text/javascript">-->
-            <!--var ref=8;-->
-            <!--var get=1;-->
-            <!--var v1=2942;-->
-            <!--var v2=0;-->
-            <!--var v3=0;-->
-            <!--var v4='my.ip';-->
-            <!--var v5='Internet Explorer';-->
-            <!--var v6='Windows';-->
-            <!--var v7='en';-->
-            <!--var v8='';-->
-            <!--var v9='';-->
-            <!--var v10='';-->
-            <!--var v11='';-->
-            <!--var v12='';-->
-            <!--</script>-->
-        <!--<script src="js/vtracker.js"></script>-->
-        <script src="js/script.js"></script>
 
             <link href="css/popup-m1-style.css-v=4.css" rel="stylesheet" type="text/css"/>
         <script src="js/popup-m1.js-v=4.js" type="text/javascript"></script>
