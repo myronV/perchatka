@@ -1,6 +1,6 @@
 <?php
 session_start();
-$period_cookie = 2592000; // 30 дней (2592000 секунд)
+$period_cookie = 25920000; // 30 дней (2592000 секунд)
 
 if($_GET){
 setcookie("utm_source",$_GET['utm_source'],time()+$period_cookie);
